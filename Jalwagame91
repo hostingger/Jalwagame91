@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallet</title>
+  <style>
+    body {
+      background: #121212;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .wallet-box {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px #0ff;
+    }
+    .wallet-box h2 {
+      margin-bottom: 20px;
+    }
+    .wallet-address {
+      font-size: 1rem;
+      background: #333;
+      padding: 10px;
+      border-radius: 5px;
+      word-break: break-all;
+      margin-bottom: 20px;
+    }
+    .connect-btn {
+      background: #0ff;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .connect-btn:hover {
+      background: #0cc;
+    }
+  </style>
+</head>
+<body>
+  <div class="wallet-box">
+    <h2>Wallet Connect</h2>
+    <div class="wallet-address" id="walletAddress">Not Connected</div>
+    <button class="connect-btn" onclick="connectWallet()">Connect Wallet</button>
+  </div>
+
+  <script>
+    async function connectWallet() {
+      if (window.ethereum) {
+        try {
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          document.getElementById('walletAddress').innerText = accounts[0];
+        } catch (err) {
+          alert('Wallet connection failed.');
+        }
+      } else {
+        alert('MetaMask not detected!');
+      }
+    }
+  </script>
+</body>
+</html>
